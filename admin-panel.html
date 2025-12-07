@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ACCESS DENIED</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background:black;
+  color:#ff3333;
+  text-align:center;
+  padding:40px;
+  animation: flash 0.3s infinite;
+}
+
+@keyframes flash {
+  0% { background:black; }
+  50% { background:#330000; }
+  100% { background:black; }
+}
+
+.big {
+  font-size:32px;
+  margin-top:30px;
+  font-weight:700;
+}
+
+.sub {
+  font-size:18px;
+  margin-top:20px;
+  color:#ff6666;
+}
+
+button {
+  margin-top:30px;
+  padding:12px 16px;
+  font-size:16px;
+  border:none;
+  background:#ff3333;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.2s;
+}
+button:hover {
+  background:#ff5555;
+}
+</style>
+</head>
+
+<body>
+
+<h1 class="big">⚠ ACCESS DENIED ⚠</h1>
+<p class="sub">Unauthorized admin attempt detected.</p>
+<p class="sub">Your action has been logged in the *Department of Suspicious People* 😆</p>
+
+<p class="big">Please step away from the Admin button!</p>
+
+<button onclick="goBack()">Okay Sorry 😭</button>
+
+<script>
+function goBack(){
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

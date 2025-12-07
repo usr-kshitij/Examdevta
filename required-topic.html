@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missing Topics – ExamDevta</title>
+<style>
+  body { font-family: 'Segoe UI', sans-serif; background:#f5f7fa; color:#333; margin:0; padding:0;}
+  header { background:#4CAF50; color:white; text-align:center; padding:1rem 0; font-size:1.5rem; font-weight:bold;}
+  .container { max-width:900px; margin:2rem auto; background:#fff; padding:1.5rem; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+  table { width:100%; border-collapse: collapse; margin-top:1rem;}
+  th, td { padding:0.75rem; border:1px solid #ccc; text-align:left;}
+  th { background:#4CAF50; color:white; }
+  tr:nth-child(even) { background:#f2f2f2; }
+  .branch-row { background:#d1e7dd; cursor:pointer; font-weight:bold; }
+  .subject-row { background:#f0f8ff; padding-left:20px; }
+  .topic-row { background:#e9f5ee; padding-left:40px; }
+  .hidden { display:none; }
+  select { padding:0.5rem; margin-top:0.5rem; border-radius:6px; border:1px solid #ccc; }
+  footer { text-align:center; margin:2rem 0; color:#555; font-size:0.9rem;}
+</style>
+</head>
+<body>
+
+<header>ExamDevta – Missing Topics</header>
+
+<div class="container">
+  <h2>Branchwise Subjects & Topics</h2>
+
+  <div>
+    <label for="branchFilter">Filter by Branch:</label>
+    <select id="branchFilter" onchange="renderTable()">
+      <option value="">All Branches</option>
+    </select>
+  </div>
+
+  <table id="topics-table">
+    <thead>
+      <tr>
+        <th>Branch</th>
+        <th>Subject</th>
+        <th>Topic</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Table rows will load here -->
+    </tbody>
+  </table>
+  
+</div>
+   <a href="share-notes.html" class="btn"><b>upload missing topics notes</b></a>
+
+
+<footer>© 2025 ExamDevta | Made with ❣️ by Kshitij </footer>
+
+<script>
+let data = {};
+
+// Load JSON
+async function loadTopics() {
+  try {
+    const response = await fetch('missing-topics.json');
+    data = await response.json();
+    populateBranchFilter();
+    renderTable();
+  } catch(err) {
+    console.error('Failed to load topics:', err);
+  }
+}
+
+// Populate branch filter dropdown
+function populateBranchFilter() {
+  const filter = document.getElementById('branchFilter');
+  filter.innerHTML = '<option value="">All Branches</option>';
+  Object.keys(data).forEach(branch => {
+    const opt = document.createElement('option');
+    opt.value = branch;
+    opt.textContent = branch;
+    filter.appendChild(opt);
+  });
+}
+
+// Render table
+function renderTable() {
+  const tbody = document.querySelector('#topics-table tbody');
+  tbody.innerHTML = '';
+  const selectedBranch = document.getElementById('branchFilter').value;
+
+  Object.keys(data).forEach(branch => {
+    if (selectedBranch && branch !== selectedBranch) return;
+
+    // Branch row
+    const branchRow = document.createElement('tr');
+    branchRow.className = 'branch-row';
+    branchRow.innerHTML = `<td colspan="3">${branch}</td>`;
+    branchRow.onclick = () => toggleBranch(branch);
+    tbody.appendChild(branchRow);
+
+    const subjects = data[branch];
+    Object.keys(subjects).forEach(subject => {
+      // Subject row
+      const subjectRow = document.createElement('tr');
+      subjectRow.className = `subject-row branch-${sanitize(branch)} hidden`;
+      subjectRow.innerHTML = `<td></td><td colspan="2">${subject}</td>`;
+      tbody.appendChild(subjectRow);
+
+      subjects[subject].forEach(topic => {
+        // Topic row
+        const topicRow = document.createElement('tr');
+        topicRow.className = `topic-row branch-${sanitize(branch)} hidden`;
+        topicRow.innerHTML = `<td></td><td></td><td>${topic.name}</td>`;
+        tbody.appendChild(topicRow);
+      });
+    });
+  });
+}
+
+// Toggle branch collapse
+function toggleBranch(branch) {
+  const rows = document.querySelectorAll(`.branch-${sanitize(branch)}`);
+  rows.forEach(row => row.classList.toggle('hidden'));
+}
+
+// Sanitize branch name for CSS class
+function sanitize(str) {
+  return str.replace(/\s+/g, '-').replace(/\(|\)/g, '');
+}
+
+// Initial load
+loadTopics();
+</script>
+
+</body>
+</html>

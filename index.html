@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EXAM DEVTA – Notes Repository</title>
+
+<style>
+/* -------------------- GLOBAL -------------------- */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background:#f6f7f9;
+  color:#2b2b2b;
+  max-width:100%;
+  margin:0;
+  padding:16px;
+  line-height:1.6;
+}
+
+/* -------------------- HEADER -------------------- */
+header {
+  background:#ffffff;
+  border:1px solid #e2e2e2;
+  border-radius:10px;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+}
+
+.header-left {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+header .logo {
+  width:55px;
+  height:55px;
+  border-radius:10px;
+  object-fit:cover;
+  border:1px solid #ccc;
+}
+
+header h1 {
+  font-size:1.7em;
+  margin-bottom:4px;
+  font-weight:700;
+}
+
+header .tagline {
+  color:#666;
+  font-size:13px;
+}
+
+/* NAV */
+nav {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+nav a {
+  text-decoration:none;
+  color:#005fcc;
+  font-weight:600;
+  padding:6px 12px;
+  border:1px solid #005fcc;
+  border-radius:6px;
+  font-size:14px;
+  transition:0.2s;
+}
+nav a:hover {
+  background:#005fcc;
+  color:#fff;
+}
+
+/* -------------------- FILTERS -------------------- */
+.filters {
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.filters label {
+  font-weight:600;
+  font-size:14px;
+  color:#333;
+}
+
+.filters select {
+  padding:8px 12px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  background:#fff;
+  min-width:150px;
+  width:100%;
+}
+
+/* -------------------- NOTES GRID -------------------- */
+.notes {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  gap:18px;
+  margin-top:28px;
+}
+
+/* -------------------- CARD -------------------- */
+.card {
+  background:#fff;
+  border:1px solid #dcdcdc;
+  border-radius:10px;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  transition:0.2s ease;
+}
+
+.card:hover {
+  box-shadow:0 4px 16px rgba(0,0,0,0.07);
+}
+
+.card h3 {
+  font-size:1.15em;
+  color:#0b3d91;
+  margin-bottom:6px;
+}
+
+.card .description {
+  color:#555;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+.card .small {
+  font-size:12px;
+  color:#777;
+  margin-bottom:10px;
+}
+
+/* Tags */
+.tags { display:flex; flex-wrap:wrap; gap:6px; }
+.tag {
+  background:#eef3ff;
+  color:#2a52be;
+  padding:4px 8px;
+  font-size:12px;
+  border-radius:4px;
+  cursor:pointer;
+  border:1px solid #d6e2ff;
+}
+.tag:hover {
+  background:#d6e2ff;
+}
+
+/* Button */
+.btn {
+  text-align:center;
+  padding:10px 14px;
+  margin-top:auto;
+  font-weight:600;
+  background:#0b3d91;
+  color:#fff;
+  border-radius:6px;
+  text-decoration:none;
+  transition:0.2s;
+  font-size:14px;
+}
+.btn:hover {
+  background:#073172;
+}
+
+/* -------------------- FOOTER -------------------- */
+footer {
+  margin-top:40px;
+  background:#ffffff;
+  padding:20px;
+  border-radius:10px;
+  border:1px solid #e2e2e2;
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+footer img {
+  width:90px;
+  height:90px;
+  border-radius:6px;
+  border:1px solid #ddd;
+}
+
+footer strong {
+  font-size:15px;
+}
+
+.made-by {
+  width:100%;
+  text-align:center;
+  margin-top:14px;
+  color:#777;
+  font-size:13px;
+}
+
+/* -------------------- RESPONSIVE -------------------- */
+@media(max-width:600px){
+  header { flex-direction:column; align-items:flex-start; width:100%; }
+  .header-left { flex-direction:row; align-items:center; width:100%; }
+  nav { width:100%; justify-content:flex-start; }
+  .filters select { width:100%; }
+  .notes { grid-template-columns:1fr; }
+  footer { flex-direction:column; text-align:center; }
+  footer img { margin: 0 auto; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="logo.png" alt="b DEVTA Logo" class="logo">
+    <div>
+      <h1>EXAM DEVTA</h1>
+      <div class="tagline">Notes repository — free for students.</div>
+
+      <div class="filters">
+        <div>
+          <label>Branch:</label>
+          <select id="branchFilter"><option value="">All</option></select>
+        </div>
+
+        <div>
+          <label>Subject:</label>
+          <select id="subjectFilter"><option value="">All</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="admin-panel.html">Admin Panel</a>
+    <a href="share-notes.html">Upload Notes</a>
+    <a href="issue.html">Report Issue</a>
+    <a href="required-topic.html">Missing Topics</a>
+  </nav>
+</header>
+
+
+<section id="notesRoot" class="notes"></section>
+
+
+<footer>
+  <div>
+    <strong>Support the Project</strong>
+    <div class="small">If these notes helped you, consider donating your notes. </div>
+  </div>
+
+ 
+
+  <a class="btn" href="required-topic.html" target="_blank">
+    Donate / Support
+  </a>
+
+  <div class="made-by">Made with ❣️ by Kshitij</div>
+</footer>
+
+
+<script>
+let allNotes = [];
+
+/* Load Notes */
+async function loadNotes() {
+  try {
+    const res = await fetch('notes.json', { cache:"no-store" });
+    if(!res.ok) throw new Error("Failed to load notes.json");
+
+    allNotes = await res.json();
+    populateBranchFilter();
+    renderNotes(allNotes);
+
+  } catch (err) {
+    document.getElementById("notesRoot").innerHTML =
+      '<div style="grid-column:1/-1;color:#b00">Error loading notes.json</div>';
+  }
+}
+
+/* Populate Branch Filter */
+function populateBranchFilter(){
+  const branchSelect = document.getElementById("branchFilter");
+  const branches = [...new Set(allNotes.map(n => n.branch).filter(Boolean))].sort();
+
+  branchSelect.querySelectorAll("option:not([value=\'\'])").forEach(o => o.remove());
+  branches.forEach(b => {
+    const opt = document.createElement("option");
+    opt.value = opt.textContent = b;
+    branchSelect.appendChild(opt);
+  });
+
+  populateSubjectFilter();
+}
+
+/* Populate Subject Filter */
+function populateSubjectFilter(){
+  const branch = document.getElementById("branchFilter").value;
+  const filtered = allNotes.filter(n => !branch || n.branch === branch);
+
+  const subjects = [...new Set(filtered.map(n => n.subject).filter(Boolean))].sort();
+
+  const subjectSelect = document.getElementById("subjectFilter");
+  subjectSelect.querySelectorAll("option:not([value=\'\'])").forEach(o => o.remove());
+
+  subjects.forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = opt.textContent = s;
+    subjectSelect.appendChild(opt);
+  });
+}
+
+document.getElementById("branchFilter").addEventListener("change", () => {
+  populateSubjectFilter();
+  filterNotes();
+});
+document.getElementById("subjectFilter").addEventListener("change", filterNotes);
+
+/* Filtering */
+function filterNotes(){
+  const branch = document.getElementById("branchFilter").value;
+  const subject = document.getElementById("subjectFilter").value;
+
+  const filtered = allNotes.filter(n =>
+    (!branch || n.branch === branch) &&
+    (!subject || n.subject === subject)
+  );
+
+  renderNotes(filtered);
+}
+
+/* Render Notes */
+function renderNotes(notes){
+  const root = document.getElementById("notesRoot");
+
+  if(!notes.length){
+    root.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#999;">
+      No notes available
+    </div>`;
+    return;
+  }
+
+  root.innerHTML = notes.map(n => `
+    <article class="card">
+      <h3>${escapeHtml(n.title)}</h3>
+      <div class="description">${escapeHtml(n.description || "")}</div>
+      <div class="small">Branch: ${escapeHtml(n.branch)} | Subject: ${escapeHtml(n.subject)}</div>
+
+      <div class="tags">
+        ${(n.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
+      </div>
+
+      <a class="btn" href="${escapeAttr(n.link)}" target="_blank">
+        Download (₹${n.price})
+      </a>
+    </article>
+  `).join("");
+
+  attachTagHandlers();
+}
+
+/* Tag Filtering */
+function attachTagHandlers(){
+  document.querySelectorAll(".tag").forEach(t => {
+    t.onclick = () => {
+      const tag = t.textContent;
+      renderNotes(allNotes.filter(n => (n.tags || []).includes(tag)));
+    };
+  });
+}
+
+function escapeHtml(s){
+  return String(s || "").replace(/[&<>"]/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':'&quot;'
+  }[c]));
+}
+
+function escapeAttr(s){
+  return escapeHtml(s).replace(/'/g,"&#39;");
+}
+
+loadNotes();
+</script>
+
+</body>
+</html>
