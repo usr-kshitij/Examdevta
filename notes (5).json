@@ -1,0 +1,28 @@
+[
+  {
+    "id": "n1765025824017",
+    "title": "Data and Signal.pdf",
+    "description": "Notes are in pdf form.\nPrinatable",
+    "link": "https://drive.google.com/file/d/1d4oamLWLbOiJSiMoYKn4nNW_Smix0oPL/view?usp=drivesdk",
+    "branch": "F.Y. Computer Science and Engineering",
+    "subject": "Data Communication",
+    "tags": [
+      "Prof. A.S NISHANDAR"
+    ],
+    "price": 0,
+    "uploaded_at": "2025-12-06"
+  },
+  {
+    "id": "n1765015746442",
+    "title": "Single Phase AC Circuit",
+    "description": "Printed pdf notes\n\nAll topics.",
+    "link": "https://drive.google.com/file/d/1CLN3JLOwX5DelBegmWt5LCpn9osX7G18/view?usp=drivesdk",
+    "branch": "F.Y. Electrical Engineering ",
+    "subject": "FUNDAMENTALS OF ELECTRICAL ENGINEERING (FEE)",
+    "tags": [
+      "omkar nimbalkar"
+    ],
+    "price": 0,
+    "uploaded_at": "2025-12-06"
+  }
+]
