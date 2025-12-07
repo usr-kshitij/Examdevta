@@ -12,10 +12,9 @@
   th, td { padding:0.75rem; border:1px solid #ccc; text-align:left;}
   th { background:#4CAF50; color:white; }
   tr:nth-child(even) { background:#f2f2f2; }
-  .branch-row { background:#d1e7dd; cursor:pointer; font-weight:bold; }
-  .subject-row { background:#f0f8ff; padding-left:20px; }
-  .topic-row { background:#e9f5ee; padding-left:40px; }
-  .hidden { display:none; }
+  .branch-row { background:#d1e7dd; font-weight:bold; }
+  .subject-row { background:#f0f8ff; }
+  .topic-row { background:#e9f5ee; }
   select { padding:0.5rem; margin-top:0.5rem; border-radius:6px; border:1px solid #ccc; }
   footer { text-align:center; margin:2rem 0; color:#555; font-size:0.9rem;}
 </style>
@@ -43,13 +42,13 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Table rows will load here -->
+      <!-- Table rows load here -->
     </tbody>
   </table>
   
 </div>
-   <a href="share-notes.html" class="btn"><b>upload missing topics notes</b></a>
 
+<a href="share-notes.html" class="btn"><b>upload missing topics notes</b></a>
 
 <footer>© 2025 ExamDevta | Made with ❣️ by Kshitij </footer>
 
@@ -68,7 +67,7 @@ async function loadTopics() {
   }
 }
 
-// Populate branch filter dropdown
+// Fill dropdown
 function populateBranchFilter() {
   const filter = document.getElementById('branchFilter');
   filter.innerHTML = '<option value="">All Branches</option>';
@@ -80,53 +79,32 @@ function populateBranchFilter() {
   });
 }
 
-// Render table
+// Render table (no collapse anymore)
 function renderTable() {
   const tbody = document.querySelector('#topics-table tbody');
   tbody.innerHTML = '';
+
   const selectedBranch = document.getElementById('branchFilter').value;
 
   Object.keys(data).forEach(branch => {
     if (selectedBranch && branch !== selectedBranch) return;
 
-    // Branch row
-    const branchRow = document.createElement('tr');
-    branchRow.className = 'branch-row';
-    branchRow.innerHTML = `<td colspan="3">${branch}</td>`;
-    branchRow.onclick = () => toggleBranch(branch);
-    tbody.appendChild(branchRow);
-
     const subjects = data[branch];
-    Object.keys(subjects).forEach(subject => {
-      // Subject row
-      const subjectRow = document.createElement('tr');
-      subjectRow.className = `subject-row branch-${sanitize(branch)} hidden`;
-      subjectRow.innerHTML = `<td></td><td colspan="2">${subject}</td>`;
-      tbody.appendChild(subjectRow);
 
+    Object.keys(subjects).forEach(subject => {
       subjects[subject].forEach(topic => {
-        // Topic row
-        const topicRow = document.createElement('tr');
-        topicRow.className = `topic-row branch-${sanitize(branch)} hidden`;
-        topicRow.innerHTML = `<td></td><td></td><td>${topic.name}</td>`;
-        tbody.appendChild(topicRow);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${branch}</td>
+          <td>${subject}</td>
+          <td>${topic.name}</td>
+        `;
+        tbody.appendChild(row);
       });
     });
   });
 }
 
-// Toggle branch collapse
-function toggleBranch(branch) {
-  const rows = document.querySelectorAll(`.branch-${sanitize(branch)}`);
-  rows.forEach(row => row.classList.toggle('hidden'));
-}
-
-// Sanitize branch name for CSS class
-function sanitize(str) {
-  return str.replace(/\s+/g, '-').replace(/\(|\)/g, '');
-}
-
-// Initial load
 loadTopics();
 </script>
 
